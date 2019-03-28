@@ -1550,7 +1550,7 @@ vector<IMU_MSG> gyro_buf;  // for Interpolation
     
     NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, keyframe_filename];
 
-    vins.drawresult.writeToCSVfile([filePath UTF8String], vins.drawresult.pose);
+    vins.drawresult.writeToCSVfile([filePath UTF8String]);
 }
 
 /********************************************************************UI Button Controler********************************************************************/
@@ -1799,14 +1799,20 @@ DeviceType deviceName()
         device_type = iPadPro97;
     }
     else if(([device compare:@"iPad6,7"] == NSOrderedSame)||
-            ([device compare:@"iPad6,8"] == NSOrderedSame))
+            ([device compare:@"iPad6,8"] == NSOrderedSame)||
+            ([device compare:@"iPad7,1"] == NSOrderedSame)||
+            ([device compare:@"iPad7,2"] == NSOrderedSame)||
+            ([device compare:@"iPad8,5"] == NSOrderedSame)||
+            ([device compare:@"iPad8,6"] == NSOrderedSame)||
+            ([device compare:@"iPad8,7"] == NSOrderedSame)||
+            ([device compare:@"iPad8,8"] == NSOrderedSame))
     {
         printf("Device iPad pro 12.9\n");
         device_type = iPadPro129;
     }
     else
     {
-        printf("Device undefine\n");
+        printf("Device undefine %s\n", [device UTF8String]);
         device_type = unDefine;
     }
     return device_type;

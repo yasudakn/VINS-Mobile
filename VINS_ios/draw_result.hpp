@@ -132,7 +132,8 @@ public:
     void drawBoxVirturCam(cv::Mat &result);
     void rejectWithF();
     cv::Scalar newColor();
-    void writeToCSVfile(string name, vector<Vector3f> matrix);
+    void writeToCSVfile(string name);
+
 private:
     Vector3f findZfromXY(Vector3f point, Vector4f plane);
     Vector4f findPlane(vector<Vector3f> &point_cloud);

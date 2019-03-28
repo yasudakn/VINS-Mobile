@@ -1086,16 +1086,12 @@ void DrawResult::Reprojection(cv::Mat &result, vector<Vector3f> &point_cloud, co
     
 }
 
-// define the format you want, you only need one instance of this...
-const static IOFormat CSVFormat(StreamPrecision, DontAlignCols, ", ", "\n");
-
-void writeToCSVfile(string name, vector<Vector3f> matrix)
+void DrawResult::writeToCSVfile(string name)
 {
-    
     ofstream file(name.c_str());
-    for(int i=0; i < matrix.size(); i++)
+    for(int i=0; i < pose.size(); i++)
     {
-        file << matrix[i].format(CSVFormat);
+        file << pose[i].x() << ',' << pose[i].y() << ',' << pose[i].z() << '\n';
     }
     file.close();
 }
