@@ -975,9 +975,6 @@ void DrawResult::Reprojection(cv::Mat &result, vector<Vector3f> &point_cloud, co
         pts_pre = pts;
     }
 
-    //save keyframe
-    writeToCSVfile(keyframe, pose);
-    
     //draw frame arrow
     {
         Vector3f p1, p2;
@@ -1092,9 +1089,13 @@ void DrawResult::Reprojection(cv::Mat &result, vector<Vector3f> &point_cloud, co
 // define the format you want, you only need one instance of this...
 const static IOFormat CSVFormat(StreamPrecision, DontAlignCols, ", ", "\n");
 
-void writeToCSVfile(string name, MatrixXd matrix)
+void writeToCSVfile(string name, vector<Vector3f> matrix)
 {
+    
     ofstream file(name.c_str());
-    file << matrix.format(CSVFormat);
+    for(int i=0; i < matrix.size(); i++)
+    {
+        file << matrix[i].format(CSVFormat);
+    }
     file.close();
 }

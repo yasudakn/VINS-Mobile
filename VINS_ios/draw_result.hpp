@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
 #include <opencv2/opencv.hpp>
 #include <eigen3/Eigen/Dense>
 #include "utility.hpp"
@@ -119,8 +120,6 @@ public:
     vector<Vector2f> pre_status, cur_status;
     vector<Matrix2f> K;
     vector<Matrix2f> cur_cov, pre_cov;
-
-    string keyframe_filename;
   
     void computeAR(vector<Vector3f> &point_cloud, Vector3f &model);
     
@@ -133,6 +132,7 @@ public:
     void drawBoxVirturCam(cv::Mat &result);
     void rejectWithF();
     cv::Scalar newColor();
+    void writeToCSVfile(string name, vector<Vector3f> matrix);
 private:
     Vector3f findZfromXY(Vector3f point, Vector4f plane);
     Vector4f findPlane(vector<Vector3f> &point_cloud);

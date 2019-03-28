@@ -1494,26 +1494,26 @@ vector<IMU_MSG> gyro_buf;  // for Interpolation
         LOOP_CLOSURE = true;
         [_loopButton setTitle:@"UNLOOP" forState:UIControlStateNormal];
     }
-    /*
+    
      start_record = !start_record;
      if(start_record)
      {
-     start_playback = false;
-     [_recordButton setTitle:@"Stop" forState:UIControlStateNormal];
-     [saveData start];
+         start_playback = false;
+         [_recordButton setTitle:@"Stop" forState:UIControlStateNormal];
+         [saveData start];
      }
      else
      {
-     TS(record_imu);
-     imuData.header = 0; // as the ending marker
-     imuData.acc << 0,0,0;
-     imuData.gyr << 0,0,0;
-     [imuDataBuf appendBytes:&imuData length:sizeof(imuData)];
-     [self recordImu];
-     TE(record_imu);
-     [_recordButton setTitle:@"Record" forState:UIControlStateNormal];
+         TS(record_imu);
+         imuData.header = 0; // as the ending marker
+         imuData.acc << 0,0,0;
+         imuData.gyr << 0,0,0;
+         [imuDataBuf appendBytes:&imuData length:sizeof(imuData)];
+         [self recordImu];
+         TE(record_imu);
+         [_recordButton setTitle:@"Record" forState:UIControlStateNormal];
      }
-     */
+    
 }
 
 - (IBAction)reinitButtonPressed:(id)sender {
@@ -1524,22 +1524,33 @@ vector<IMU_MSG> gyro_buf;  // for Interpolation
     segmentation_index++;
     keyframe_database.max_seg_index++;
     keyframe_database.cur_seg_index = keyframe_database.max_seg_index;
-    /*
+    
      start_playback = !start_playback;
      if(start_playback)
      {
-     //TS(read_imu);
-     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-     NSString *documentsPath = [paths objectAtIndex:0];
-     NSString *filePath = [documentsPath stringByAppendingPathComponent:@"IMU"]; //Add the file name
-     imuReader = [NSData dataWithContentsOfFile:filePath];
-     //TE(read_imu);
-     start_record = false;
-     [_playbackButton setTitle:@"Stop" forState:UIControlStateNormal];
+         //TS(read_imu);
+         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+         NSString *documentsPath = [paths objectAtIndex:0];
+         NSString *filePath = [documentsPath stringByAppendingPathComponent:@"IMU"]; //Add the file name
+         imuReader = [NSData dataWithContentsOfFile:filePath];
+         //TE(read_imu);
+         start_record = false;
+         [_playbackButton setTitle:@"Stop" forState:UIControlStateNormal];
      }
      else
-     [_playbackButton setTitle:@"Playback" forState:UIControlStateNormal];
-     */
+         [_playbackButton setTitle:@"Playback" forState:UIControlStateNormal];
+    
+}
+
+- (IBAction)recordButtonPressed:(id)sender {
+    NSString *keyframe_filename = @"vins_keyframe.log";
+    
+    NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    
+    NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, keyframe_filename];
+
+    vins.drawresult.writeToCSVfile([filePath UTF8String], vins.drawresult.pose);
 }
 
 /********************************************************************UI Button Controler********************************************************************/
