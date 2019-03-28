@@ -119,6 +119,9 @@ public:
     vector<Vector2f> pre_status, cur_status;
     vector<Matrix2f> K;
     vector<Matrix2f> cur_cov, pre_cov;
+
+    string keyframe_filename;
+  
     void computeAR(vector<Vector3f> &point_cloud, Vector3f &model);
     
     void drawAR(cv::Mat &result, vector<Vector3f> &point_cloud, Vector3f P_latest, Matrix3f R_latest);
